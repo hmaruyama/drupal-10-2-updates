@@ -4,7 +4,7 @@ namespace Drupal\marucha\Controller;
 
 use Drupal\Component\Datetime\Time;
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
  * Provides route responses for marucha module.
@@ -24,17 +24,11 @@ class MaruchaController extends ControllerBase {
    * @param \Drupal\Component\Datetime\Time $time
    *   This is an time service.
    */
-  public function __construct(Time $time) {
+  public function __construct(
+    #[Autowire(service: 'datetime.time')]
+    Time $time
+  ) {
     $this->time = $time;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('datetime.time')
-    );
   }
 
   /**
