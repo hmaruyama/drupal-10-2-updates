@@ -33,17 +33,9 @@ class MaruchaConfigForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Name'),
       '#default_value' => $config->get('name'),
+      '#config_target' => 'marucha.settings:name',
     ];
     return parent::buildForm($form, $form_state);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    if (!$form_state->getValue('name')) {
-      $form_state->setErrorByName('name', '入力してください！(validateFormメソッドで制御)');
-    }
   }
 
   /**
